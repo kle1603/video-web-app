@@ -2,20 +2,41 @@ import PropTypes from "prop-types";
 import { Box, Typography } from "@mui/material";
 
 import * as St from "./DetailContext.styled";
-import data from "../Data/Data";
+// import data from "../Data/Data";
 import cast_1 from "../../assets/images/cast-1.png";
 import cast_2 from "../../assets/images/cast-2.png";
 import cast_3 from "../../assets/images/cast-3.png";
 import cast_4 from "../../assets/images/cast-4.png";
 import cast_5 from "../../assets/images/cast-5.png";
 import Slider from "../Slider";
+import { useEffect, useState } from "react";
+import { getAllMovie } from "../../utils/movieApi";
 
 const DetailContent = ({ id, time, link, index }) => {
-    const item = data[id];
+    // const item = data[id];
+    const [movie, setMovie] = useState("");
+    const [movies, setMovies] = useState("");
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await getAllMovie(`Movie/${id}`);
+            setMovie(data);
+        })();
+    }, [id]);
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await getAllMovie(`Movie`);
+            console.log(data);
+            setMovies(data);
+        })();
+    }, []);
 
     return (
         <St.StyledDiv>
-            <Typography className="content__desc">{item.desc}</Typography>
+            <Typography className="content__desc">
+                {movie.description}
+            </Typography>
             <Typography className="title">Top Cast</Typography>
             <Box className="list">
                 <Box className="item">
@@ -85,7 +106,7 @@ const DetailContent = ({ id, time, link, index }) => {
                 </Box>
             </Box>
             <Typography className="title__carousel">More Like this</Typography>
-            <Slider data={data} time={time} link={link} index={index} />
+            <Slider data={movies} time={time} link={link} index={index} />
         </St.StyledDiv>
     );
 };

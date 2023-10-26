@@ -2,15 +2,37 @@
 
 import * as St from "./Header.styled";
 import logo from "../../assets/images/logo.png";
-import avatar from "../../assets/images/avatar.jpg";
 import SearchIcon from "@mui/icons-material/Search";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import configs from "../../configs";
 import useScroll from "../../hooks/useScroll";
-import { Box, Typography } from "@mui/material";
+import { Box, Tooltip, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+
+// import { useSelector } from "react-redux";
+import TooltipCus from "../TooltipCus";
+import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
+    const navigate = useNavigate();
     const [scrollY] = useScroll();
+    const [user, setUser] = useState(null);
+    const { isLoggedIn } = useAuth();
+
+    useEffect(() => {
+        const userData = localStorage.getItem("userData");
+
+        if (userData) {
+            const parsedUserData = JSON.parse(userData);
+            setUser(parsedUserData);
+        } else {
+            setUser(null);
+        }
+    }, [isLoggedIn]);
+
+    const handleClick = () => {
+        navigate(configs.routes.login);
+    };
 
     return (
         <St.StyledAppBar
@@ -57,13 +79,25 @@ const Header = () => {
                         />
                         <SearchIcon className="header__search-icon" />
                     </Box>
-                    <Box className="header__avatar">
-                        <img
-                            className="header__avatar-image"
-                            src={avatar}
-                            alt=""
-                        />
-                    </Box>
+                    {user ? (
+                        <Tooltip title={<TooltipCus />}>
+                            <Box className="header__avatar">
+                                <img
+                                    className="header__avatar-image"
+                                    src={user.picture}
+                                    alt=""
+                                />
+                            </Box>
+                        </Tooltip>
+                    ) : (
+                        <Box onClick={handleClick} className="login">
+                            <Box className="login-button">
+                                <Typography className="login-desc">
+                                    Login
+                                </Typography>
+                            </Box>
+                        </Box>
+                    )}
                 </Box>
             </St.StyledToolbar>
         </St.StyledAppBar>

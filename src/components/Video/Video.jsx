@@ -8,22 +8,17 @@ const Video = ({ open, setOpen, src }) => {
     return (
         <St.StyledModal open={open} onClose={handleModal}>
             <Box className="modal__wrapper">
-                <iframe
-                    className="video"
-                    // allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture full"
-                    src={`${src}`}
-                    // allowFullScreen
-                />
+                <iframe className="video" src={`${src}`} />
             </Box>
         </St.StyledModal>
     );
 };
 
 Video.propTypes = {
-    handleModal: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired,
-    setOpen: PropTypes.bool.isRequired,
-    src: PropTypes.string.isRequired,
+    handleModal: PropTypes.func,
+    open: PropTypes.bool,
+    setOpen: PropTypes.func,
+    src: PropTypes.string,
 };
 
 export default Video;

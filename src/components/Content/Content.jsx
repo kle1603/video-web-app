@@ -5,8 +5,7 @@ import * as St from "./Content.styled";
 import chevron from "../../assets/icons/chevron-mini.png";
 import Slider from "../Slider";
 
-const Content = ({ title, data, time, index }) => {
-    // console.log(data);
+const Content = ({ title, time, index }) => {
     return (
         <St.StyledDiv>
             <Box className="content__header">
@@ -16,14 +15,13 @@ const Content = ({ title, data, time, index }) => {
                     <img className="button__icon" src={chevron} alt="" />
                 </Box>
             </Box>
-            <Slider data={data} time={time} link={"detail/"} index={index} />
+            <Slider time={time} link={"detail/"} index={index} />
         </St.StyledDiv>
     );
 };
 
 Content.propTypes = {
     title: PropTypes.string.isRequired,
-    data: PropTypes.array.isRequired,
     time: PropTypes.number.isRequired,
     index: PropTypes.number.isRequired,
 };

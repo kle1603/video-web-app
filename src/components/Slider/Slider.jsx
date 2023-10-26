@@ -4,8 +4,20 @@ import { Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
 import * as St from "./Slider.styled";
 import { SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { getAllMovie } from "../../utils/movieApi";
 
-const Slider = ({ data, time, link, index }) => {
+const Slider = ({ time, link, index }) => {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await getAllMovie("Movie");
+            console.log(data);
+            setMovies(data);
+        })();
+    }, []);
+
     return (
         <St.StyledSwiper
             initialSlide={index}
@@ -30,7 +42,7 @@ const Slider = ({ data, time, link, index }) => {
             }}
             modules={[Autoplay]}
         >
-            {data.map((item) => (
+            {movies.map((item) => (
                 <SwiperSlide key={item.id}>
                     <Link to={`${link}${item.id}`} className="item">
                         <img className="image" src={item.image} alt="" />
@@ -42,7 +54,6 @@ const Slider = ({ data, time, link, index }) => {
 };
 
 Slider.propTypes = {
-    data: PropTypes.array.isRequired,
     time: PropTypes.number.isRequired,
     link: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,

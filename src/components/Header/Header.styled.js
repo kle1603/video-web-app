@@ -108,5 +108,72 @@ export const StyledToolbar = styled(Toolbar)`
                 border-radius: 50%;
             }
         }
+
+        .login {
+            /* border-radius: 10px;
+            height: 39px;
+            width: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border: 1px solid #fff;
+            background: transparent;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease-in-out;
+            cursor: pointer;
+
+            .login-button {
+                color: #fff;
+                font-size: 1.6rem;
+                font-weight: 700;
+            } */
+
+            position: relative;
+            color: #f5f5f5;
+            height: 40px;
+            width: 100px;
+            display: block;
+            text-align: center;
+            border-radius: 999px;
+            text-decoration: none;
+            background-image: linear-gradient(
+                115deg,
+                #4fcf70,
+                #fad648,
+                #a767e5,
+                #12bcfe,
+                #44ce7b
+            );
+            cursor: pointer;
+
+            &:hover {
+                animation: rotate 0.4s linear infinite;
+            }
+
+            .login-button {
+                height: 86%;
+                width: 92%;
+                background: #111;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border-radius: 999px;
+                transform: translate(-50%, -50%);
+
+                .login-desc {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+
+        @keyframes rotate {
+            100% {
+                filter: hue-rotate(-360deg);
+            }
+        }
     }
 `;

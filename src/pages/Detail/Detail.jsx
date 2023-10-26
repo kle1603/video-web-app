@@ -9,7 +9,7 @@ const Detail = () => {
 
     return (
         <div>
-            <DetailLanding id={id} time={2000} link={"/detail/"} />
+            <DetailLanding id={id} />
             <DetailContent id={id} time={2000} link={"/detail/"} index={1} />
         </div>
     );

@@ -4,6 +4,7 @@ const routes = {
     contact: "/contact",
     movies: "/movies",
     series: "/series",
+    login: "/login",
 };
 
 export default routes;

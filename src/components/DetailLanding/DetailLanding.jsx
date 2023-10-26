@@ -3,26 +3,36 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import DownloadIcon from "@mui/icons-material/Download";
 import ReplyIcon from "@mui/icons-material/Reply";
 
-import data from "../../components/Data";
+// import data from "../../components/Data";
 import * as St from "./DetailLanding.styled";
 import watchlist from "../../assets/icons/watchlist.png";
 import play from "../../assets/icons/play.png";
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Video from "../Video";
+import { getAllMovie } from "../../utils/movieApi";
 
 const DetailLanding = ({ id }) => {
     const [open, setOpen] = useState(false);
     const handleModal = () => setOpen(!open);
 
-    const item = data[id];
+    const [movie, setMovie] = useState("");
+
+    useEffect(() => {
+        (async () => {
+            const { data } = await getAllMovie(`Movie/${id}`);
+            setMovie(data);
+        })();
+    }, [id]);
+
+    // const item = data[id];
 
     return (
         <St.StyledDiv>
-            <img className="background" src={item.background} alt="" />
+            <img className="background" src={movie.background} alt="" />
             <Box className="content">
                 <Box className="content__image-wrapper">
-                    <img className="content__image" src={item.logo} alt="" />
+                    <img className="content__image" src={movie.logo} alt="" />
                 </Box>
                 <Box className="content__title">
                     <Typography className="content__title-item">
@@ -74,7 +84,7 @@ const DetailLanding = ({ id }) => {
                 </Box>
             </Box>
             <Box className="fade"></Box>
-            <Video setOpen={setOpen} open={open} src={item.video} />
+            <Video setOpen={setOpen} open={open} src={movie.video} />
         </St.StyledDiv>
     );
 };
